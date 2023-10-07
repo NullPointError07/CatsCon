@@ -5,7 +5,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: (81, 81, 81, 1);
-    --background-start-rgb: (252, 253, 254, 1);
+    --background-start-rgb: #fcfdfe;
     --background-end-rgb: 0, 0, 0;
   }
 }
@@ -31,4 +31,8 @@ body {
   border-radius: 8px;
   color: white;
   font-size: 20px;
+}
+
+.image-container {
+  object-fit: fill;
 }

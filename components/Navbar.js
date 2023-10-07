@@ -5,20 +5,27 @@ import { useState } from "react";
 
 import { FaBars } from "react-icons/fa";
 import NavbarResponsive from "./NavbarResponsive";
+import SignInModal from "./SignInModal";
 
 const Navbar = () => {
   // dropdown state for Find Cats
   const [dropdown, setDropDown] = useState(false);
   const [navbar, setNavbar] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // toggle function for Find Cats
   const toggleDropDown = () => {
     setDropDown(!dropdown);
   };
 
-  // toggle function for navbar
+  // toggle function for navbar responsive
   const toggleNavbar = () => {
     setNavbar(!navbar);
+  };
+
+  // toggle Function for Modal
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
   };
 
   const navItems = ["Find Cats", "Benefits", "FAQ", "About Us"];
@@ -52,12 +59,21 @@ const Navbar = () => {
           width={52}
           height={52}
         />
-        <button className="btn-primary border-l-2 pl-2">Sign In</button>
+        <button onClick={toggleModal} className="btn-primary border-l-2 pl-2">
+          Sign In
+        </button>
       </div>
 
       {/* Responsive Navbar Section , might move to a new component */}
       {navbar && (
         <NavbarResponsive navItems={navItems} toggleNavbar={toggleNavbar} />
+      )}
+
+      {/* Modal Section for sign In purpose */}
+      {modalOpen && (
+        <div>
+          <SignInModal modalOpen={modalOpen} toggleModal={toggleModal} />
+        </div>
       )}
     </div>
   );
