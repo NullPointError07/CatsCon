@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -7,17 +5,16 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
-import SignUpModal from "./SignUpModal";
 
-const SignInModal = ({ toggleModal }) => {
-  const [showPassword, setShowPassword] = useState(false);
+const SignUpModal = ({ toggleModal, toggleSignUpModal }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [termsAgreed, setTermsAgreed] = useState(false);
-  const [signUpModal, setSignUpModal] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
 
   const handleEmailChange = (e) => {
@@ -28,28 +25,29 @@ const SignInModal = ({ toggleModal }) => {
     setPassword(e.target.value);
   };
 
-  const handleTermsAgreedChange = () => {
-    setTermsAgreed(!termsAgreed);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
-  const handleSignIn = () => {
-    // Perform your sign-in logic here
-    // You can access the email, password, and termsAgreed states here
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleSignUp = () => {
+    // Perform your sign-up logic here
+    // You can access the name, email, password, and confirmPassword states here
     // Remember to handle validation and any API requests as needed
+    console.log("Name:", name);
     console.log("Email:", email);
     console.log("Password:", password);
-    console.log("Terms Agreed:", termsAgreed);
+    console.log("Confirm Password:", confirmPassword);
 
     // Close the modal
     toggleModal();
   };
 
-  const toggleSignUpModal = () => {
-    setSignUpModal(!signUpModal);
-  };
-
   return (
-    <div className="fixed inset-0 backdrop-brightness-100  flex justify-center items-center">
+    <div className="fixed inset-0 backdrop-brightness-100 flex justify-center items-center">
       <div className="bg-[#f8fbff] text-center p-6 relative rounded-lg">
         <button
           className="close-button absolute top-0 right-6 bg-[#d4e8ff] rounded-lg p-1 mt-4"
@@ -66,21 +64,28 @@ const SignInModal = ({ toggleModal }) => {
           </div>
           <p className="theme-2">Welcome To CatsEzy</p>
           <p className="text-gray-400 text-xs pb-4">
-            Login to your account - share your adorable cat video
+            Register to your account - share your adorable cat video.
           </p>
         </div>
 
-        <div className="modal-body space-y-4">
-          {/* email field */}
+        <div className="modal-body space-y-4 ">
+          {/* Name field */}
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={handleNameChange}
+            className="bg-[#d4e8ff] rounded-lg py-2 px-10 block w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+          {/* Email field */}
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={handleEmailChange}
             className="bg-[#d4e8ff] rounded-lg py-2 px-10 block w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
           />
-          {/* password field */}
+          {/* Password field */}
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -103,53 +108,50 @@ const SignInModal = ({ toggleModal }) => {
               )}
             </div>
           </div>
-
-          <label>
+          {/* Confirm Password field */}
+          <div className="relative">
             <input
-              type="checkbox"
-              checked={termsAgreed}
-              onChange={handleTermsAgreedChange}
-              className="my-4 mr-2"
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              className="py-2 px-10 block w-full rounded-lg bg-[#d4e8ff] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            Agreed to terms and conditions
-          </label>
+            <div className="absolute inset-y-0 right-4 flex items-center">
+              {showPassword ? (
+                <AiOutlineEye
+                  onClick={togglePasswordVisibility}
+                  className="cursor-pointer"
+                />
+              ) : (
+                <AiOutlineEyeInvisible
+                  onClick={togglePasswordVisibility}
+                  className="cursor-pointer"
+                />
+              )}
+            </div>
+          </div>
         </div>
-
         <div className="modal-footer">
-          <button className="btn-primary" onClick={handleSignIn}>
-            Sign In
+          <button className="btn-primary my-4" onClick={handleSignUp}>
+            Create Account
           </button>
-        </div>
-
-        <div className="flex items-center">
-          <div className="flex-grow h-px bg-gray-300"></div>
-          <div className="mx-2">or</div>
-          <div className="flex-grow h-px bg-gray-300"></div>
         </div>
 
         <div>
           <h1>
-            Dont Have an Account?{" "}
+            Already Have an Account?{" "}
             <button
               onClick={toggleSignUpModal}
               className="bg-[#04aeee] p-1 rounded-lg text-white"
             >
-              SignUp
+              Sign In
             </button>
           </h1>
         </div>
-
-        {signUpModal && (
-          <div>
-            <SignUpModal
-              toggleModal={toggleModal}
-              toggleSignUpModal={toggleSignUpModal}
-            />
-          </div>
-        )}
       </div>
     </div>
   );
 };
 
-export default SignInModal;
+export default SignUpModal;
