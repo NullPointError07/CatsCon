@@ -1,17 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+// import {singIn, singOut, useSession, getProviders} from 'next-auth/react'
 
 import { FaBars } from "react-icons/fa";
 import NavbarResponsive from "./NavbarResponsive";
 import SignInModal from "./SignInModal";
 
 const Navbar = () => {
-  // dropdown state for Find Cats
   const [dropdown, setDropDown] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const [providers, setProviders] = useState(null);
+
+  useEffect(() => {
+    const setProviders = async () => {
+      const response = await getProviders();
+      setProviders(response);
+    };
+
+    setProviders();
+  }, []);
+
+  // auth purpose
+  const isUserLoggedIn = false;
 
   // toggle function for Find Cats
   const toggleDropDown = () => {
@@ -28,6 +43,8 @@ const Navbar = () => {
     setModalOpen(!modalOpen);
   };
 
+  const handleSignOut = () => {};
+
   const navItems = ["Find Cats", "Benefits", "FAQ", "About Us"];
 
   return (
@@ -41,7 +58,7 @@ const Navbar = () => {
         <div className="flex items-center ">
           <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
           <h1 className="theme-1 text-2xl">
-            Cats<span className="theme-2">Ezy</span>
+            Cats<span className="theme-2">Con</span>
           </h1>
         </div>
         <div className="hidden lg:flex space-x-2 md:space-x-4 lg:space-x-8 text-xl ">
@@ -59,9 +76,35 @@ const Navbar = () => {
           width={52}
           height={52}
         />
-        <button onClick={toggleModal} className="btn-primary border-l-2 pl-2">
-          Sign In
-        </button>
+        {isUserLoggedIn ? (
+          <div className="flex gap-3 md:gap-5 items-center">
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="btn-primary border-l-2 pl-2"
+            >
+              Sign Out
+            </button>
+            <Link href="/profile">
+              <Image
+                src="/Portrait_Placeholder.png"
+                alt="profile pic"
+                width={37}
+                height={37}
+                className="rounded-full"
+              />
+            </Link>
+          </div>
+        ) : (
+          <>
+            <button
+              onClick={toggleModal}
+              className="btn-primary border-l-2 pl-2"
+            >
+              Sign In
+            </button>
+          </>
+        )}
       </div>
 
       {/* Responsive Navbar Section , might move to a new component */}

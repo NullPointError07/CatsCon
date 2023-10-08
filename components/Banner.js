@@ -31,5 +31,5 @@ const Banner = () => {
     </Carousel>
   );
 };
-
+ই;
 export default Banner;
