@@ -8,7 +8,7 @@ const NavbarResponsive = ({ navItems, toggleNavbar }) => {
         <div className="flex items-center ">
           <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
           <h1 className="theme-1 text-2xl">
-            Cats<span className="theme-2">Ezy</span>
+            Cats<span className="theme-2">Con</span>
           </h1>
         </div>
         <div className="bg-[#ebf4fe] p-1 rounded-lg">

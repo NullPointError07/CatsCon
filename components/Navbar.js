@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// import {singIn, singOut, useSession, getProviders} from 'next-auth/react'
+import { signOut, useSession } from "next-auth/react";
+// import { singIn, singOut, useSession, getProviders } from "next-auth/react";
 
 import { FaBars } from "react-icons/fa";
 import NavbarResponsive from "./NavbarResponsive";
@@ -14,19 +15,7 @@ const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [providers, setProviders] = useState(null);
-
-  useEffect(() => {
-    const setProviders = async () => {
-      const response = await getProviders();
-      setProviders(response);
-    };
-
-    setProviders();
-  }, []);
-
-  // auth purpose
-  const isUserLoggedIn = false;
+  const { data: session } = useSession();
 
   // toggle function for Find Cats
   const toggleDropDown = () => {
@@ -48,7 +37,7 @@ const Navbar = () => {
   const navItems = ["Find Cats", "Benefits", "FAQ", "About Us"];
 
   return (
-    <div className="flex justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px] cursor-pointer">
+    <div className="flex  w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px] cursor-pointer">
       <div className="flex items-center space-x-4 md:space-x-3 lg:space-x-8">
         <div>
           <button onClick={toggleNavbar} className="lg:hidden theme-1">
@@ -69,23 +58,24 @@ const Navbar = () => {
           ))}
         </div>
       </div>
-      <div className="flex">
+      <div className="flex  justify-end">
         <Image
           src="/NotificationIcon.png"
           alt="Bell Icon"
           width={52}
           height={52}
         />
-        {isUserLoggedIn ? (
+        {session ? (
           <div className="flex gap-3 md:gap-5 items-center">
+            <p className="text-lg">{session.user.name}</p>
             <button
               type="button"
-              onClick={handleSignOut}
+              onClick={() => signOut()}
               className="btn-primary border-l-2 pl-2"
             >
               Sign Out
             </button>
-            <Link href="/profile">
+            {/* <Link href="/profile">
               <Image
                 src="/Portrait_Placeholder.png"
                 alt="profile pic"
@@ -93,16 +83,18 @@ const Navbar = () => {
                 height={37}
                 className="rounded-full"
               />
-            </Link>
+            </Link> */}
           </div>
         ) : (
           <>
-            <button
-              onClick={toggleModal}
-              className="btn-primary border-l-2 pl-2"
-            >
-              Sign In
-            </button>
+            <div className="flex gap-3 md:gap-5 items-center">
+              <button
+                onClick={toggleModal}
+                className="btn-primary border-l-2 pl-2"
+              >
+                Sign In
+              </button>
+            </div>
           </>
         )}
       </div>
@@ -114,7 +106,7 @@ const Navbar = () => {
 
       {/* Modal Section for sign In purpose */}
       {modalOpen && (
-        <div>
+        <div className=" absolute left-0 top-0 z-40">
           <SignInModal modalOpen={modalOpen} toggleModal={toggleModal} />
         </div>
       )}

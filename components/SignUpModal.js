@@ -12,38 +12,70 @@ const SignUpModal = ({ toggleModal, toggleSignUpModal }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
+  const handleSignUp = async (e) => {
+    e.preventDefault();
 
-  const handleSignUp = () => {
-    // Perform your sign-up logic here
-    // You can access the name, email, password, and confirmPassword states here
-    // Remember to handle validation and any API requests as needed
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
+    if (!name || !email || !password || !confirmPassword) {
+      setError("All fields are required");
+    }
+
+    try {
+      const resUserExists = await fetch("api/userExists", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const { user } = await resUserExists.json();
+
+      if (user) {
+        setError("User already exists.");
+        return;
+      }
+
+      if (password != confirmPassword) {
+        setError("Passwords do not match");
+        return;
+      }
+
+      const res = await fetch("api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          confirmPassword,
+        }),
+      });
+
+      if (res.ok) {
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setSuccess("User create Successfully");
+        toggleSignUpModal();
+      } else {
+        console.log("user registration failed");
+      }
+    } catch (error) {
+      console.log("error occured", error);
+    }
 
     // Close the modal
-    toggleModal();
+    // toggleModal();
   };
 
   return (
@@ -59,22 +91,22 @@ const SignUpModal = ({ toggleModal, toggleSignUpModal }) => {
           <div className="flex justify-center items-end ">
             <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
             <h1 className="theme-1 text-2xl">
-              Cats<span className="theme-2">Ezy</span>
+              Cats<span className="theme-2">Con</span>
             </h1>
           </div>
-          <p className="theme-2">Welcome To CatsEzy</p>
+          <p className="theme-2">Welcome To CatsCon</p>
           <p className="text-gray-400 text-xs pb-4">
             Register to your account - share your adorable cat video.
           </p>
         </div>
 
-        <div className="modal-body space-y-4 ">
+        <form onSubmit={handleSignUp} className="modal-body space-y-4 ">
           {/* Name field */}
           <input
             type="text"
             placeholder="Name"
             value={name}
-            onChange={handleNameChange}
+            onChange={(e) => setName(e.target.value)}
             className="bg-[#d4e8ff] rounded-lg py-2 px-10 block w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           {/* Email field */}
@@ -82,7 +114,7 @@ const SignUpModal = ({ toggleModal, toggleSignUpModal }) => {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={handleEmailChange}
+            onChange={(e) => setEmail(e.target.value)}
             className="bg-[#d4e8ff] rounded-lg py-2 px-10 block w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           {/* Password field */}
@@ -91,7 +123,7 @@ const SignUpModal = ({ toggleModal, toggleSignUpModal }) => {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
-              onChange={handlePasswordChange}
+              onChange={(e) => setPassword(e.target.value)}
               className="py-2 px-10 block w-full rounded-lg bg-[#d4e8ff] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             <div className="absolute inset-y-0 right-4 flex items-center">
@@ -114,7 +146,7 @@ const SignUpModal = ({ toggleModal, toggleSignUpModal }) => {
               type={showPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="py-2 px-10 block w-full rounded-lg bg-[#d4e8ff] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             <div className="absolute inset-y-0 right-4 flex items-center">
@@ -131,14 +163,23 @@ const SignUpModal = ({ toggleModal, toggleSignUpModal }) => {
               )}
             </div>
           </div>
-        </div>
-        <div className="modal-footer">
-          <button className="btn-primary my-4" onClick={handleSignUp}>
-            Create Account
-          </button>
-        </div>
 
-        <div>
+          {error && (
+            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+              {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+              {success}
+            </div>
+          )}
+
+          <button className="btn-primary my-4">Create Account</button>
+        </form>
+
+        <div className="modal-footer mt-4">
           <h1>
             Already Have an Account?{" "}
             <button
