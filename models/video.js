@@ -20,6 +20,6 @@ const VideoSchema = new Schema({
   },
 });
 
-const Videos = models.Videos || model("Videos", VideoSchema);
+const Video = models.Video || model("Video", VideoSchema);
 
-export default Videos;
+export default Video;
