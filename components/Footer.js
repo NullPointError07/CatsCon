@@ -5,7 +5,7 @@ import { BsFacebook, BsInstagram } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <div className="bg-[#034690] text-white flex justify-around items-baseline py-4 px-2 mt-8">
+    <div className="bg-[#034690] text-white flex justify-around items-baseline py-4 px-2 ">
       <div className="space-y-2">
         <div className="flex items-end">
           <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
