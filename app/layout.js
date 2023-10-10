@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./Providers";
+import Footer from "@/components/Footer";
 
 const Roboto = Roboto_Mono({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
       <body className={Roboto.className}>
         <AuthProvider>
           <Navbar /> {children}
+          <Footer />
         </AuthProvider>
       </body>
     </html>

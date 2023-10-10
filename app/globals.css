@@ -36,3 +36,11 @@ body {
 .image-container {
   object-fit: fill;
 }
+
+
+
+/* some styles */
+
+.flex-start {
+  @apply flex justify-start items-start;
+}
