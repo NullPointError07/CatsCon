@@ -1,6 +1,7 @@
 "use client";
 
 import Form from "@/components/Form";
+import { data } from "autoprefixer";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,6 +9,7 @@ import { useState } from "react";
 const CreateVideo = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  console.log("testing" + JSON.stringify(session?.user));
 
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
@@ -20,6 +22,15 @@ const CreateVideo = () => {
     e.preventDefault();
 
     setSubmitting(true);
+
+    const data = {
+      title: post.title,
+      userId: session?.user._id,
+      description: post.description,
+      tag: post.tag,
+    };
+
+    console.log(data);
 
     try {
       const response = await fetch("/api/video/new", {

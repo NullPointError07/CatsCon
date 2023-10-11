@@ -4,6 +4,8 @@ import Video from "@/models/video";
 export const POST = async (req) => {
   const { userId, title, description, tag } = await req.json();
 
+  console.log(userId);
+
   try {
     await connectMongoDB();
     const newVideo = new Video({ creator: userId, title, description, tag });
