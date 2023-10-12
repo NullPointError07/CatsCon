@@ -6,7 +6,7 @@ import VideoCard from "./VideoCard";
 
 const VideoCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 ">
+    <div className="my-16 grid grid-cols-4 gap-4 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
       {data.map((post) => (
         <VideoCard key={post._id} post={post} handleTagClick={handleTagClick} />
       ))}

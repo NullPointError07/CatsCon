@@ -44,12 +44,14 @@ const Navbar = () => {
             <FaBars />
           </button>
         </div>
-        <div className="flex items-center ">
-          <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
-          <h1 className="theme-1 text-2xl">
-            Cats<span className="theme-2">Con</span>
-          </h1>
-        </div>
+        <Link href="/">
+          <div className="flex items-center ">
+            <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
+            <h1 className="theme-1 text-2xl">
+              Cats<span className="theme-2">Con</span>
+            </h1>
+          </div>
+        </Link>
         <div className="hidden lg:flex space-x-2 md:space-x-4 lg:space-x-8 text-xl ">
           {navItems.map((item, idx) => (
             <ul key={idx}>
@@ -67,7 +69,12 @@ const Navbar = () => {
         />
         {session ? (
           <div className="flex gap-3 md:gap-5 items-center">
-            <p className="text-lg">{session.user.name}</p>
+            <Link href="/create-video">
+              <button className="btn-primary">Create Video</button>
+            </Link>
+            <Link href="/profile">
+              <p className="text-lg font-bold">{session.user.name}</p>
+            </Link>
             <button
               type="button"
               onClick={() => signOut()}
