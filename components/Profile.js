@@ -6,7 +6,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
       <div>
         {name} Profile
         <p>{desc}</p>
-        <div className="my-10 grid grid-cols-4 gap-4 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
+        <div className="my-10 grid lg:grid-cols-4 md:grid-cols-2 gap-4 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
           {data.map((post) => (
             <VideoCard
               key={post._id}

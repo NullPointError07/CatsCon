@@ -1,9 +1,9 @@
 "use client";
 
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { useState } from "react";
 // import { singIn, singOut, useSession, getProviders } from "next-auth/react";
 
 import { FaBars } from "react-icons/fa";
@@ -31,8 +31,6 @@ const Navbar = () => {
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
-
-  const handleSignOut = () => {};
 
   const navItems = ["Find Cats", "Benefits", "FAQ", "About Us"];
 
@@ -82,15 +80,6 @@ const Navbar = () => {
             >
               Sign Out
             </button>
-            {/* <Link href="/profile">
-              <Image
-                src="/Portrait_Placeholder.png"
-                alt="profile pic"
-                width={37}
-                height={37}
-                className="rounded-full"
-              />
-            </Link> */}
           </div>
         ) : (
           <>

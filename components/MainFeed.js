@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import VideoCard from "./VideoCard";
 
 const VideoCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="my-16 grid grid-cols-4 gap-4 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
+    <div className="my-16 grid lg:grid-cols-4 md:grid-cols-2 gap-4 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
       {data.map((post) => (
         <VideoCard key={post._id} post={post} handleTagClick={handleTagClick} />
       ))}
@@ -65,8 +65,8 @@ const MainFeed = () => {
 
   return (
     <section className="feed mt-8">
-      <form className="grid grid-cols-6 gap-6 border-2 rounded-lg py-4 px-6 mx-40 shadow-lg">
-        <div className="col-span-5">
+      <form className="border-2 rounded-lg py-4 px-6 lg:mx-28 mx-6 md:mx-8 shadow-lg flex items-center justify-between ">
+        <div className="flex-1 pr-2">
           <input
             type="text"
             placeholder="Search by Title or Tags"
@@ -76,7 +76,8 @@ const MainFeed = () => {
             className="px-3 py-4 block w-full rounded-lg bg-[#d4e8ff] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
-        <div className="btn-primary text-center">Search</div>
+
+        <div className="btn-primary text-center w-1/4 sm:w-1/6">Search</div>
       </form>
 
       {/* All Video */}

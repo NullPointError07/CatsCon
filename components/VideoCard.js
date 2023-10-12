@@ -1,13 +1,15 @@
 "use client";
-import Image from "next/image";
+
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 const VideoCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
-  const { data: session } = useSession;
+  const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
+
+  console.log("session.user.id!!:", session?.user.id);
+  console.log("post.creator._id:", post.creator._id);
 
   return (
     <div className="border-2 rounded-xl shadow p-4 hover:shadow-2xl cursor:pointer">
@@ -25,7 +27,8 @@ const VideoCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         >
           {post.tag}
         </p>
-        {session?.user.id === post.creator.id && pathName === "/profile" && (
+
+        {session?.user.id === post.creator._id && pathName === "/profile" && (
           <div className="flex justify-center items-stretch pt-4 space-x-3">
             <p
               className="text-sm bg-green-500 p-1 rounded-lg text-white cursor-pointer"

@@ -15,7 +15,22 @@ export const GET = async (req, { params }) => {
 };
 
 export const PUT = async (request, { params }) => {
-  const data = await request.body;
+  const data = await request.text();
+
+  console.log("data:", data);
+
+  if (!data) {
+    // Handle the case where the request body is empty
+    return new Response("Request body is empty", { status: 400 });
+  }
+
+  try {
+    const jsonData = JSON.parse(data);
+    // Now you can work with jsonData
+    console.log("Parsed JSON data:", jsonData);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+  }
   console.log("data:", data);
   console.log("params:", params);
   //   console.log("Description:", description);

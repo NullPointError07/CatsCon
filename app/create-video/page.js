@@ -1,7 +1,7 @@
 "use client";
 
 import Form from "@/components/Form";
-import { data } from "autoprefixer";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { useState } from "react";
 const CreateVideo = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  console.log("testingWithout" + session?.user);
   console.log("testing" + JSON.stringify(session?.user));
 
   const [submitting, setSubmitting] = useState(false);
