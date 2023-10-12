@@ -1,0 +1,42 @@
+export const PATCH = async (request, { params }) => {
+    const { video, title, description, tag } = await request.json();
+    console.log("Title:", title);
+    console.log("Description:", description);
+    console.log("Tag:", tag);
+  
+    try {
+      await connectMongoDB();
+  
+      // Find the existing video by ID
+      const existingVideo = await Video.findById({params.id});
+      console.log("Existing video", existingVideo);
+      console.log("id", existingVideo._id);
+      console.log("title", existingVideo.title);
+  
+      if (!existingVideo) {
+        return new Response("Video not found", { status: 404 });
+      }
+  
+      // Update the video with new data
+      // existingVideo.title = title;
+      // console.log(existingVideo.get("title"));
+      // existingVideo.description = description;
+      // console.log(existingVideo.description);
+      // existingVideo.tag = tag;
+      // console.log(existingVideo.tag);
+  
+      // const updatedVideo = {
+      //   title,
+      //   description,
+      //   tag,
+      // };
+  
+      // await Video.updateOne({ _id: existingVideo._id }, { $set: updatedVideo });
+  
+      await existingVideo.save();
+  
+      return new Response(JSON.stringify(existingVideo), { status: 200 });
+    } catch (error) {
+      return new Response("Error Updating Video", { status: 500 });
+    }
+  };
