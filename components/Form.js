@@ -30,14 +30,16 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           </label>
 
           <label>
-            <input
+            <textarea
+              style={{ resize: "none" }}
+              rows={4}
               type="text"
               placeholder="Description"
               value={post.description}
               onChange={(e) =>
                 setPost({ ...post, description: e.target.value })
               }
-              className="bg-[#d4e8ff] rounded-lg  block w-full py-8 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="bg-[#d4e8ff] rounded-lg  block w-full py-4 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
             />
           </label>

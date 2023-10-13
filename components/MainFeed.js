@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import VideoCard from "./VideoCard";
 
-const VideoCardList = ({ data, handleTagClick }) => {
+const VideoCardList = ({ data, handleTagClick, currentPage, itemsPerPage }) => {
+  // Calculate the index range for the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = data.slice(startIndex, endIndex);
+
   return (
-    <div className="my-16 grid lg:grid-cols-4 md:grid-cols-2 gap-4 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
-      {data.map((post) => (
+    <div className="my-16 grid lg:grid-cols-4 md:grid-cols-2 gap-8 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
+      {currentItems.map((post) => (
         <VideoCard key={post._id} post={post} handleTagClick={handleTagClick} />
       ))}
     </div>
@@ -17,15 +21,20 @@ const VideoCardList = ({ data, handleTagClick }) => {
 const MainFeed = () => {
   const [allPosts, setAllPosts] = useState([]);
 
-  // Search states
+  // search filter states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
+  // paginaition states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const totalItems = allPosts.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
   const fetchPosts = async () => {
     const response = await fetch("/api/video");
     const data = await response.json();
-
     setAllPosts(data);
   };
 
@@ -33,26 +42,30 @@ const MainFeed = () => {
     fetchPosts();
   }, []);
 
-  const filterPrompts = (searchtext) => {
-    const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
-    return allPosts.filter(
-      (item) =>
-        regex.test(item.creator.username) ||
-        regex.test(item.tag) ||
-        regex.test(item.prompt)
-    );
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
   };
 
   const handleSearchChange = (e) => {
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
 
-    // debounce method
+    // Debounce method
     setSearchTimeout(
       setTimeout(() => {
         const searchResult = filterPrompts(e.target.value);
         setSearchedResults(searchResult);
       }, 500)
+    );
+  };
+
+  const filterPrompts = (searchtext) => {
+    const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
+    return allPosts.filter(
+      (item) =>
+        regex.test(item.creator.name) ||
+        regex.test(item.tag) ||
+        regex.test(item.title)
     );
   };
 
@@ -64,8 +77,8 @@ const MainFeed = () => {
   };
 
   return (
-    <section className="feed mt-8">
-      <form className="border-2 rounded-lg py-4 px-6 lg:mx-28 mx-6 md:mx-8 shadow-lg flex items-center justify-between ">
+    <section className="feed my-12">
+      <form className="border-2 rounded-lg py-4 px-6 lg:mx-28 mx-6 md:mx-8 mt-6 shadow-lg flex items-center justify-between">
         <div className="flex-1 pr-2">
           <input
             type="text"
@@ -80,12 +93,39 @@ const MainFeed = () => {
         <div className="btn-primary text-center w-1/4 sm:w-1/6">Search</div>
       </form>
 
-      {/* All Video */}
       {searchText ? (
-        <VideoCardList data={searchedResults} handleTagClick={handleTagClick} />
+        <VideoCardList
+          data={searchedResults}
+          handleTagClick={handleTagClick}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
       ) : (
-        <VideoCardList data={allPosts} handleTagClick={handleTagClick} />
+        <VideoCardList
+          data={allPosts}
+          handleTagClick={handleTagClick}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
       )}
+
+      <div className="pagination text-center space-x-3">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="btn-pagination"
+        >
+          Previous
+        </button>
+        <span className="btn-pagination">{currentPage}</span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="btn-pagination"
+        >
+          Next
+        </button>
+      </div>
     </section>
   );
 };

@@ -25,10 +25,23 @@ const MyProfile = () => {
   }, []);
 
   const handleEdit = (post) => {
-    router.push(`/update-video?id=${post.id}`);
+    router.push(`/update-video?id=${post._id}`);
   };
 
-  const handleDelete = async (post) => {};
+  const handleDelete = async (post) => {
+    const hasConfirmed = confirm("This video will be deleted. Are you sure?");
+
+    if (hasConfirmed) {
+      try {
+        await fetch(`api/video/${post._id.toString()}`, {
+          method: "DELETE",
+        });
+
+        const filteredPost = post.filter((p) => p._id !== post.id);
+        setPosts(filteredPost);
+      } catch (error) {}
+    }
+  };
 
   return (
     <Profile

@@ -14,6 +14,7 @@ const VideoCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   return (
     <div className="border-2 rounded-xl shadow p-4 hover:shadow-2xl cursor:pointer">
       <div>
+        <video src="/cat-video.mp4" controls loop autoPlay></video>
         <h1 className="text-lg font-medium">
           <span className="text-xs">Uploaded by:</span> {post.creator.name}
         </h1>

@@ -14,49 +14,28 @@ export const GET = async (req, { params }) => {
   }
 };
 
-export const PUT = async (request, { params }) => {
-  const data = await request.text();
-
-  console.log("data:", data);
-
-  if (!data) {
-    // Handle the case where the request body is empty
-    return new Response("Request body is empty", { status: 400 });
-  }
-
-  try {
-    const jsonData = JSON.parse(data);
-    // Now you can work with jsonData
-    console.log("Parsed JSON data:", jsonData);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-  }
-  console.log("data:", data);
-  console.log("params:", params);
-  //   console.log("Description:", description);
-  //   console.log("Tag:", tag);
+export const PATCH = async (requst, { params }) => {
+  const { title, description, tag } = await requst.json();
+  console.log("Title:", title);
+  console.log("Description:", description);
+  console.log("Tag:", tag);
 
   try {
     await connectMongoDB();
 
-    // Find the existing video by ID
     const existingVideo = await Video.findById(params.id);
+    console.log(existingVideo.title);
+    if (!existingVideo) return new Response("Vide not found", { status: 404 });
 
-    if (!existingVideo) {
-      return new Response("Video not found", { status: 404 });
-    }
-
-    // Update the video properties with new data
     existingVideo.title = title;
     existingVideo.description = description;
     existingVideo.tag = tag;
 
-    // Save the updated video back to the database
     await existingVideo.save();
 
     return new Response(JSON.stringify(existingVideo), { status: 200 });
   } catch (error) {
-    return new Response("Failed to update the video", { status: 500 });
+    return new Response("Failed to update Video", { status: 500 });
   }
 };
 
