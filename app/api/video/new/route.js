@@ -36,26 +36,31 @@
 // }
 // };
 
-import { connectMongoDB } from "@/lib/mongodb";
 import Video from "@/models/video";
 import { NextResponse } from "next/server";
 
 export const POST = async (req, res) => {
   try {
-    const { title, description, tag, video } = await req.json();
+    const { title, description, tag, file } = await req.json();
 
-    console.log("title", title, description, tag, video);
+    console.log(
+      "do i get anything from postman",
+      title,
+      description,
+      tag,
+      file
+    );
 
-    if (!req.video) {
-      return new Response("No video file provided", { status: 400 });
+    if (!req) {
+      return new Response("No file file provided", { status: 400 });
     }
     const newVideo = new Video({
       title,
       description,
       tag,
-      video,
+      file,
     });
-    console.log("testing video upload", newVideo);
+    console.log("testing file upload", newVideo);
     // await newVideo.save();
     return new Response(JSON.stringify(newVideo), { status: 201 });
 

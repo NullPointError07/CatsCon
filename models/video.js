@@ -18,9 +18,8 @@ const VideoSchema = new Schema({
     type: String,
     required: [true, "tag is required"],
   },
-  video: {
-    data: Buffer,
-    contentType: String,
+  file: {
+    type: String,
   },
 });
 
