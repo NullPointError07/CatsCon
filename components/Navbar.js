@@ -4,6 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { BsFilePerson } from "react-icons/bs";
 // import { singIn, singOut, useSession, getProviders } from "next-auth/react";
 
 import { FaBars } from "react-icons/fa";
@@ -35,7 +36,7 @@ const Navbar = () => {
   const navItems = ["Find Cats", "Benefits", "FAQ", "About Us"];
 
   return (
-    <div className="flex  w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px] cursor-pointer">
+    <div className="relative flex w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px] cursor-pointer">
       <div className="flex items-center space-x-4 md:space-x-3 lg:space-x-8">
         <div>
           <button onClick={toggleNavbar} className="lg:hidden theme-1">
@@ -58,7 +59,7 @@ const Navbar = () => {
           ))}
         </div>
       </div>
-      <div className="flex  justify-end">
+      <div className="flex justify-end items-center">
         <Image
           src="/NotificationIcon.png"
           alt="Bell Icon"
@@ -66,20 +67,27 @@ const Navbar = () => {
           height={52}
         />
         {session ? (
-          <div className="flex gap-3 md:gap-5 items-center">
-            <Link href="/create-video">
-              <button className="btn-primary">Create Video</button>
-            </Link>
-            <Link href="/profile">
-              <p className="text-lg font-bold">{session.user.name}</p>
-            </Link>
-            <button
-              type="button"
-              onClick={() => signOut()}
-              className="btn-primary border-l-2 pl-2"
-            >
-              Sign Out
+          <div className="relative">
+            <button className="text-center" onClick={toggleDropDown}>
+              <BsFilePerson size={40} />
             </button>
+            {dropdown && (
+              <div className="absolute right-0 top-16 bg-zinc-300 w-[240px] px-5 py-5 rounded-lg flex flex-col gap-3 md:gap-5 items-center">
+                <Link href="/create-video">
+                  <button className="btn-primary">Create Video</button>
+                </Link>
+                <Link href="/profile">
+                  <p className="text-3xl font-bold">{session.user.name}</p>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => signOut()}
+                  className="btn-primary "
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
