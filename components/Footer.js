@@ -5,7 +5,7 @@ import { BsFacebook, BsInstagram } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <div className="bg-[#034690] text-white flex justify-around items-baseline py-4 px-2 ">
+    <div className="bg-[#034690] text-white flex flex-col md:flex-row space-y-10 justify-around items-baseline py-4 px-10 ">
       <div className="space-y-2">
         <div className="flex items-end">
           <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
@@ -50,6 +50,7 @@ const Footer = () => {
           </Link>
         </div>
       </div>
+
       <div className="space-y-5">
         <h1>Site Map</h1>
         <ul className="space-y-2">
