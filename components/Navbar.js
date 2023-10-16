@@ -4,14 +4,19 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+// import { useRouter } from "next/navigation";
 import { BsFilePerson } from "react-icons/bs";
 // import { singIn, singOut, useSession, getProviders } from "next-auth/react";
 
 import { FaBars } from "react-icons/fa";
 import NavbarResponsive from "./NavbarResponsive";
 import SignInModal from "./SignInModal";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
+  const { pathname } = useRouter();
+
   const [dropdown, setDropDown] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,7 +27,6 @@ const Navbar = () => {
   const toggleDropDown = () => {
     setDropDown(!dropdown);
   };
-
   // toggle function for navbar responsive
   const toggleNavbar = () => {
     setNavbar(!navbar);
@@ -35,8 +39,18 @@ const Navbar = () => {
 
   const navItems = ["Find Cats", "Benefits", "FAQ", "About Us"];
 
+  const handleCreateVdo = () => {
+    router.push("/create-video");
+    setDropDown(false);
+  };
+
+  const handleProfile = () => {
+    router.push("/profile");
+    setDropDown(false);
+  };
+
   return (
-    <div className="relative flex w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px] cursor-pointer">
+    <div className=" flex w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px] cursor-pointer">
       <div className="flex items-center space-x-4 md:space-x-3 lg:space-x-8">
         <div>
           <button onClick={toggleNavbar} className="lg:hidden theme-1">
@@ -74,10 +88,14 @@ const Navbar = () => {
             {dropdown && (
               <div className="absolute right-0 top-16 bg-zinc-300 w-[240px] px-5 py-5 rounded-lg flex flex-col gap-3 md:gap-5 items-center">
                 <Link href="/create-video">
-                  <button className="btn-primary">Create Video</button>
+                  <button onClick={handleCreateVdo} className="btn-primary">
+                    Create Video
+                  </button>
                 </Link>
                 <Link href="/profile">
-                  <p className="text-3xl font-bold">{session.user.name}</p>
+                  <p onClick={handleProfile} className="text-3xl font-bold">
+                    {session.user.name}
+                  </p>
                 </Link>
                 <button
                   type="button"
