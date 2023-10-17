@@ -17,6 +17,7 @@ const CreateVideo = () => {
     title: "",
     description: "",
     tag: "",
+    file: "",
   });
 
   const createVideo = async (e) => {
@@ -28,7 +29,9 @@ const CreateVideo = () => {
       title: post.title,
       userId: session?.user._id,
       description: post.description,
+
       tag: post.tag,
+      file: e.target.value,
     };
 
     console.log(data);
