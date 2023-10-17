@@ -1,21 +1,6 @@
-"use client";
 import Link from "next/link";
-import { useState } from "react";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
-  const [state, setState] = useState({});
-  const [file, setFile] = useState();
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleChangeFile = (e) => {
-    setFile(e.target.files);
-  };
-
-  console.log("state", state, file);
   return (
     <section className="bg-[#f1f7ff] w-full max-w-full grid lg:grid-cols-2 md:grid-cols-1 lg:px-16 md:px-10 sm:px-3 py-20  gap-10">
       <div className="p-12">
@@ -37,9 +22,8 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             <input
               type="text"
               placeholder="Title"
-              // value={post.title}
-              name="title"
-              onChange={(e) => handleChange(e)}
+              value={post.title}
+              onChange={(e) => setPost({ ...post, title: e.target.value })}
               className="bg-[#d4e8ff] rounded-lg block w-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
             />
@@ -51,9 +35,10 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
               rows={4}
               type="text"
               placeholder="Description"
-              // value={post.description}
-              name="description"
-              onChange={(e) => handleChange(e)}
+              value={post.description}
+              onChange={(e) =>
+                setPost({ ...post, description: e.target.value })
+              }
               className="bg-[#d4e8ff] rounded-lg  block w-full py-4 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
             />
@@ -63,9 +48,8 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             <input
               type="text"
               placeholder="Tags #adorable, #orange, #aww, etc."
-              // value={post.tag}
-              name="tag"
-              onChange={(e) => handleChange(e)}
+              value={post.tag}
+              onChange={(e) => setPost({ ...post, tag: e.target.value })}
               className="bg-[#d4e8ff] rounded-lg  block w-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
             />
@@ -75,9 +59,8 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             <input
               type="file"
               placeholder="Upload Your Video"
-              // value={post.file}
-              name="file"
-              onChange={(e) => handleChangeFile(e)}
+              // value={post.tag}
+              // onChange={(e) => setPost({ ...post, tag: e.target.value })}
               className="bg-[#d4e8ff] rounded-lg  block w-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               // required
             />
