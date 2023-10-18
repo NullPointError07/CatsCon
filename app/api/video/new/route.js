@@ -13,8 +13,6 @@ export const POST = async (req, res) => {
     // await connectMongoDB();
     const { title, description, tag, file } = formObject;
 
-    console.log("checking", formObject.file);
-
     if (!file) {
       console.log("No file provided");
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -28,7 +26,7 @@ export const POST = async (req, res) => {
       title,
       description,
       tag,
-      file,
+      file: file.buffer,
     });
 
     console.log("testing file upload:", newVideo);

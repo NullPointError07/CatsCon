@@ -1,9 +1,16 @@
 import multer from "multer";
 import path from "path";
+import nc from "next-connect";
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/uploads/");
+    cb(null, path.join(process.cwd(), "public/uploads/"));
   },
   filename: function (req, file, cb) {
     // Use a unique name for each uploaded file (e.g., a timestamp)
@@ -32,6 +39,15 @@ const upload = multer({
   },
 });
 
-const uploadFile = upload.single("file");
+export default handler = nc({
+  onError: (err, req, res) => {
+    console.error(err.stack);
+    res.status(err.statusCode || 500).end(err.message);
+  },
+})
+  .use(upload.single("file"))
+  .post((req, res) => {
+    res.status(201).json({ body: req.body, file: req.file });
+  });
 
-export default uploadFile;
+ 
