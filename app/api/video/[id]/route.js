@@ -14,11 +14,12 @@ export const GET = async (req, { params }) => {
   }
 };
 
-export const PATCH = async (requst, { params }) => {
-  const { title, description, tag } = await requst.json();
-  console.log("Title:", title);
-  console.log("Description:", description);
-  console.log("Tag:", tag);
+export const PATCH = async (req, { params }) => {
+  const formData = await req.formData();
+
+  const formObject = Object.fromEntries(formData);
+
+  const {  title, description, tag } = formObject;
 
   try {
     await connectMongoDB();

@@ -1,45 +1,74 @@
 import { connectMongoDB } from "@/lib/mongodb";
 import Video from "@/models/video";
 import { NextResponse } from "next/server";
+import { existsSync } from "fs";
+import fs from "fs/promises";
+import path from "path";
 
-export const POST = async (req, res) => {
+export async function POST(req) {
   const formData = await req.formData();
-  // console.log("lets see the formData", formData);
 
   const formObject = Object.fromEntries(formData);
-  // console.log("extracting from formData", formObject);
+
+  const { userId, title, description, tag, file } = formObject;
+
+  if (!file) {
+    return NextResponse.json({ error: "No file provided" }, { status: 400 });
+  }
+
+  const destinationDirPath = path.join(process.cwd(), "/public/uploads");
+
+  const fileArrayBuffer = await file.arrayBuffer();
+
+  // if (!existsSync(destinationDirPath)) {
+  //   await fs.mkdir(destinationDirPath, { recursive: true });
+  // }
+
+  // let filename = file.name;
+  // while (existsSync(path.join(destinationDirPath, filename))) {
+  //   filename = Date.now() + filename;
+  // }
+
+  let filename = Date.now() + file.name;
+
+  await fs.writeFile(
+    path.join(destinationDirPath, filename),
+    Buffer.from(fileArrayBuffer)
+  );
+
+  // const [extension, ...name] = filename.split(".").reverse();
 
   try {
-    // await connectMongoDB();
-    const { title, description, tag, file } = formObject;
+    await connectMongoDB();
 
-    if (!file) {
-      console.log("No file provided");
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
-    }
-
-    console.log("postman results:", title, description, tag, file);
-
-    console.log("file information:", file);
+    const fileObject = {
+      fileName: Date.now() + file.name,
+      size: file.size,
+      lastModified: new Date(file.lastModified),
+      url: `http://localhost:3000/api/video/new/${file.name}`,
+      location: `/uploads/${filename}`,
+      // preview: ["mp4"].includes(extension.toLowerCase())
+      //   ? `http://202.4.125.204:3000/play?filename=${filename}`
+      //   : undefined,
+    };
 
     const newVideo = new Video({
+      creator: userId,
       title,
       description,
       tag,
-      file: file.buffer,
+      file: fileObject,
     });
 
     console.log("testing file upload:", newVideo);
 
-    // Save the video to the database (uncomment the line when your database is connected)
-    // await newVideo.save();
+    await newVideo.save();
 
     return NextResponse.json(newVideo, { status: 201 });
   } catch (error) {
-    console.error("An error occurred while registering the user:", error);
     return NextResponse.json(
-      { error: "An error occurred while registering the user." },
+      { error: "An error occurred while creating video." },
       { status: 500 }
     );
   }
-};
+}

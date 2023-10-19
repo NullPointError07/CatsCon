@@ -28,7 +28,7 @@ const MainFeed = () => {
 
   // paginaition states
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
   const totalItems = allPosts.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 

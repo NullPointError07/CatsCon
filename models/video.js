@@ -5,7 +5,6 @@ const VideoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-
   title: {
     type: String,
     required: [true, "title is required"],
@@ -19,7 +18,7 @@ const VideoSchema = new Schema({
     required: [true, "tag is required"],
   },
   file: {
-    type: String,
+    type: Object,
   },
 });
 
