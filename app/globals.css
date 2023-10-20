@@ -58,3 +58,18 @@ body {
 .image-container {
   object-fit: fill;
 }
+
+.slick-dots {
+  bottom: 20px; /* Adjust the distance from the bottom as needed */
+}
+
+.slick-dots li {
+  margin: 0 10px; /* Adjust the spacing between dots as needed */
+}
+
+.slick-dots li button {
+  width: 20px; /* Adjust the width to your desired size */
+  height: 20px; /* Adjust the height to your desired size */
+  background: #333; /* Customize the background color of the dots */
+  border-radius: 50%; /* Make them circular */
+}

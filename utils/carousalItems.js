@@ -19,6 +19,11 @@ const carousalItems = [
     header: "The MVP of the Meow-nificent Game!",
     text: "Dribbling through life with feline finesse and playful prowess.",
   },
+  {
+    image: "/BengalCat.jpg",
+    header: "The King of the Jungle!",
+    text: "Roaming the wild with regal grace and untamed majesty.",
+  },
 ];
 
 export default carousalItems;
