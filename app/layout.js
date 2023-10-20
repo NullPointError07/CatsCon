@@ -1,11 +1,8 @@
 import Navbar from "@/components/Navbar";
-// import Provider from "@/components/Provider";
-import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./Providers";
 import Footer from "@/components/Footer";
 
-const Roboto = Roboto_Mono({ subsets: ["latin"] });
 
 export const metadata = {
   title: "CatsCon",
@@ -15,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={Roboto.className}>
+      <body >
         <AuthProvider>
           <Navbar /> {children}
           <Footer />

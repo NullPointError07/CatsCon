@@ -75,7 +75,7 @@ const SignInModal = ({ toggleModal }) => {
         <div className="flex flex-col space-y-4">
           <div className="flex justify-center items-end ">
             <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
-            <h1 className="theme-1 text-2xl">
+            <h1 className="theme-1 text-2xl font-extrabold">
               Cats<span className="theme-2">Con</span>
             </h1>
           </div>

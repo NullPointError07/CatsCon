@@ -60,7 +60,7 @@ const Navbar = () => {
         <Link href="/">
           <div className="flex items-center ">
             <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
-            <h1 className="theme-1 text-2xl">
+            <h1 className="theme-1 text-2xl font-extrabold">
               Cats<span className="theme-2">Con</span>
             </h1>
           </div>
@@ -93,7 +93,10 @@ const Navbar = () => {
                   </button>
                 </Link>
                 <Link href="/profile">
-                  <p onClick={handleProfile} className="text-3xl font-bold">
+                  <p
+                    onClick={handleProfile}
+                    className="text-3xl font-extrabold"
+                  >
                     {session.user.name}
                   </p>
                 </Link>

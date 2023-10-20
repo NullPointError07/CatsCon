@@ -9,9 +9,9 @@ const Footer = () => {
       <div className="space-y-2">
         <div className="flex items-end">
           <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
-          <h1 className=" text-2xl">CatsCon</h1>
+          <h1 className=" text-2xl font-extrabold">CatsCon</h1>
         </div>
-        <h1>Cats Con Pte Ltd</h1>
+        <h1 className="font-bold">Cats Con Pte Ltd</h1>
         <p>UEN: 202126955R</p>
         <p>Registered address</p>
         <p>
@@ -36,7 +36,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="space-y-5">
-        <h1>General Enquiries</h1>
+        <h1 className="font-bold">General Enquiries</h1>
         <p className="flex items-center gap-2">
           <AiOutlineMail />
           support@realezy.com
@@ -52,7 +52,7 @@ const Footer = () => {
       </div>
 
       <div className="space-y-5">
-        <h1>Site Map</h1>
+        <h1 className="font-bold">Site Map</h1>
         <ul className="space-y-2">
           <li>About Us</li>
           <li>Benefits</li>
@@ -60,7 +60,7 @@ const Footer = () => {
         </ul>
       </div>
       <div className="space-y-5">
-        <h1>Catagories</h1>
+        <h1 className="font-bold">Catagories</h1>
         <ul className="space-y-2">
           <li>HBD</li>
           <li>Condos</li>
