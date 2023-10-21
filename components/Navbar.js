@@ -8,10 +8,10 @@ import { useState } from "react";
 import { BsFilePerson } from "react-icons/bs";
 // import { singIn, singOut, useSession, getProviders } from "next-auth/react";
 
+import { useRouter } from "next/navigation";
 import { FaBars } from "react-icons/fa";
 import NavbarResponsive from "./NavbarResponsive";
 import SignInModal from "./SignInModal";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
@@ -86,7 +86,7 @@ const Navbar = () => {
               <BsFilePerson size={40} />
             </button>
             {dropdown && (
-              <div className="absolute right-0 top-16 bg-zinc-300 w-[240px] px-5 py-5 rounded-lg flex flex-col gap-3 md:gap-5 items-center">
+              <div className="absolute right-0 top-16 bg-zinc-300 w-[240px] py-5 rounded-lg flex flex-col gap-3 md:gap-5 items-center">
                 <Link href="/create-video">
                   <button onClick={handleCreateVdo} className="btn-primary">
                     Create Video

@@ -3,7 +3,7 @@ import Link from "next/link";
 const Newsletter = () => {
   return (
     <section className="bg-[#f1f7ff] w-full max-w-full grid lg:grid-cols-2 md:grid-cols-1 lg:px-24 md:px-10 sm:px-3 py-20 gap-10">
-      <div className="py-12 px-16">
+      <div className="py-12 px-10 xl::px-16">
         <h1 className="text-[#034ea1] text-5xl font-bold mb-4">
           <span className="blue_gradient">Message Us</span>
         </h1>
