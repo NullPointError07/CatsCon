@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useState } from "react";
 // import { useRouter } from "next/navigation";
 import { BsFilePerson } from "react-icons/bs";
-// import { singIn, singOut, useSession, getProviders } from "next-auth/react";
 
 import { useRouter } from "next/navigation";
 import { FaBars } from "react-icons/fa";
@@ -50,22 +49,29 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" flex w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px] cursor-pointer">
-      <div className="flex items-center space-x-4 md:space-x-3 lg:space-x-8">
+    <div className=" flex w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[80px] lg:px-[50px] md:px-[30px] px-[22px] cursor-pointer">
+      <div className="flex items-center space-x-0">
         <div>
           <button onClick={toggleNavbar} className="lg:hidden theme-1">
             <FaBars />
           </button>
         </div>
-        <Link href="/">
-          <div className="flex items-center ">
-            <Image src="/CatsIcon.png" alt="CatsIcon" width={75} height={25} />
-            <h1 className="theme-1 text-2xl font-extrabold">
-              Cats<span className="theme-2">Con</span>
-            </h1>
-          </div>
-        </Link>
-        <div className="hidden lg:flex space-x-2 md:space-x-4 lg:space-x-8 text-xl ">
+        <div>
+          <Link href="/">
+            <div className="flex items-center ">
+              <Image
+                src="/CatsIcon.png"
+                alt="CatsIcon"
+                width={75}
+                height={25}
+              />
+              <h1 className="theme-1 text-2xl font-extrabold">
+                Cats<span className="theme-2">Con</span>
+              </h1>
+            </div>
+          </Link>
+        </div>
+        <div className="hidden lg:flex space-x-2 md:space-x-4 lg:space-x-8 text-xl pl-4">
           {navItems.map((item, idx) => (
             <ul key={idx}>
               <li className="hover:text-[#04aeee]">{item}</li>

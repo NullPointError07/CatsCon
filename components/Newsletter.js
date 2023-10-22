@@ -2,17 +2,17 @@ import Link from "next/link";
 
 const Newsletter = () => {
   return (
-    <section className="bg-[#f1f7ff] w-full max-w-full grid lg:grid-cols-2 md:grid-cols-1 lg:px-24 md:px-10 sm:px-3 py-20 gap-10">
-      <div className="py-12 px-10 xl::px-16">
-        <h1 className="text-[#034ea1] text-5xl font-bold mb-4">
-          <span className="blue_gradient">Message Us</span>
+    <section className="bg-[#f1f7ff] w-full max-w-full flex flex-col xl:flex-row justify-between xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]  py-10 lg:py-20 ">
+      <div className="py-12 text-center xl:text-start">
+        <h1 className="text-[#034ea1]  text-5xl font-bold mb-4">
+          <span>Message Us</span>
         </h1>
-        <p className="lg:text-left max-w-md text-xl">
+        <p className="max-w-md text-xl">
           We'd love to hear about your experience with us.
         </p>
       </div>
 
-      <div className="border-2 p-12 mx-12 shadow-lg rounded-lg">
+      <div className="border-2 p-12 shadow-lg rounded-lg">
         <form className="w-full max-w-4xl flex flex-col gap-7 glassmorphism">
           <div className="flex gap-7">
             <div className="w-full md:w-1/2">

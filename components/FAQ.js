@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { items } from "@/utils/faqitems";
+import Image from "next/image";
 import { useState } from "react";
 
 const AccordionItem = ({ title, content, isOpen, onClick }) => (
@@ -28,16 +28,16 @@ const Accordion = () => {
   const [openItem, setOpenItem] = useState(null);
 
   return (
-    <div className="mx-10 lg:mx-20 xl:mx-32 my-6">
+    <div className=" my-6">
       <div className="text-center">
         <p className="fw-bolder text-5xl">Frequently Asked Questions</p>
         <p className="mt-3 mb-5">
           Some Frequently asked Questions by Our Users.
         </p>
       </div>
-      <div className="flex flex-row h-auto w-full    py-5 gap-4 lg:gap-10">
+      <div className="flex flex-col lg:flex-row h-auto w-full py-5 gap-4 lg:gap-10">
         <div
-          className="text-start my-auto h-full w-[50%]"
+          className="text-start my-auto h-full w-full lg:w-[50%]"
           id="accordionExample"
         >
           {items.map((item, index) => (

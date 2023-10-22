@@ -10,7 +10,7 @@ const VideoCardList = ({ data, handleTagClick, currentPage, itemsPerPage }) => {
   const currentItems = data.slice(startIndex, endIndex);
 
   return (
-    <div className="my-16 grid lg:grid-cols-4 md:grid-cols-2 gap-8 cursor-pointer xl:px-[105px] lg:px-[93.33px] md:px-[30px] px-[22px]">
+    <div className="my-16 grid lg:grid-cols-4 md:grid-cols-2 gap-8 cursor-pointer ">
       {currentItems.map((post) => (
         <VideoCard key={post._id} post={post} handleTagClick={handleTagClick} />
       ))}
@@ -78,7 +78,7 @@ const MainFeed = () => {
 
   return (
     <section className="feed my-12">
-      <form className="border-2 rounded-lg py-4 px-6 lg:mx-28 mx-6 md:mx-8 mt-6 shadow-lg flex items-center justify-between">
+      <form className="border-2 rounded-lg py-4 px-6 mt-6 shadow-lg flex items-center justify-between">
         <div className="flex-1 pr-2">
           <input
             type="text"
@@ -90,7 +90,9 @@ const MainFeed = () => {
           />
         </div>
 
-        <div className="btn-primary text-center w-1/4 sm:w-1/6">Search</div>
+        <div className="px-1 md:px-3 py-4 bg-[#04aeee] text-white rounded-lg text-center w-1/4 sm:w-1/6">
+          Search
+        </div>
       </form>
 
       {searchText ? (

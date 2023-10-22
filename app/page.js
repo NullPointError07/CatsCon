@@ -6,10 +6,12 @@ import Newsletter from "@/components/Newsletter";
 export default function Home() {
   return (
     <main>
-      <Banner/>
-      <MainFeed />
-      <Accordion/>
-      <Newsletter/>
+      <Banner />
+      <div className="2xl:px-[140px] xl:px-[80px] lg:px-[50px] md:px-[30px] px-[22px] ">
+        <MainFeed />
+        <Accordion />
+      </div>
+      <Newsletter />
     </main>
   );
 }
