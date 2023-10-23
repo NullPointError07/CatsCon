@@ -16,11 +16,6 @@ export async function POST(req) {
       confirmPassword: hashedConfirmPassword,
     });
 
-    // console.log("name", name);
-    // console.log("email", email);
-    // console.log("password", password);
-    // console.log("confirmPassword", confirmPassword);
-
     return NextResponse.json({ message: "User registered." }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
