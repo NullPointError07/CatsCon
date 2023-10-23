@@ -28,10 +28,10 @@ const Banner = () => {
                 className="w-full  rounded-xl"
               />
               <div className="absolute bottom-0 left-0 p-2 md:p-4 lg:p-6 bg-white bg-opacity-80">
-                <h3 className="text-md sm:text-5xl font-semibold mb-2">
+                <h3 className="text-md md:text-5xl font-semibold mb-2">
                   {item.header}
                 </h3>
-                <p className="text-gray-900 text-xs sm:text-lg">{item.text}</p>
+                <p className="text-gray-900 text-xs md:text-lg">{item.text}</p>
               </div>
             </div>
           ))}

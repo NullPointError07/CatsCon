@@ -1,16 +1,15 @@
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { BsPlayCircle } from 'react-icons/bs';
+import { BsPlayCircle } from "react-icons/bs";
 import VideoPlayModal from "./VideoPlayModal";
-
 
 const VideoCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const [showVideoModal, setShowVideoModal] = useState(false);
 
   const { data: session } = useSession();
   const pathName = usePathname();
-  
+
   const toggleVideoModal = () => {
     setShowVideoModal(!showVideoModal);
   };
@@ -22,6 +21,7 @@ const VideoCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           className="rounded-xl"
           src={post?.file ? `${post.file.location}` : "cat-video.mp4"}
         />
+        <div className="absolute top-0 left-0 w-full h-full rounded-xl bg-black/30"></div>
         <div className="absolute inset-0 flex justify-center items-center">
           <BsPlayCircle
             onClick={() => {

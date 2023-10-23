@@ -3,7 +3,7 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { useRouter } from "next/navigation";
 import { BsFilePerson } from "react-icons/bs";
 
@@ -48,6 +48,22 @@ const Navbar = () => {
     setDropDown(false);
   };
 
+  const dropdownRef = useRef();
+
+  useEffect(() => {
+    const closeDropdownOnClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropDown(false);
+      }
+    };
+
+    document.addEventListener("click", closeDropdownOnClick);
+
+    return () => {
+      document.removeEventListener("click", closeDropdownOnClick);
+    };
+  }, []);
+
   return (
     <div className=" flex w-full justify-between items-center bg-[#FFFFFF] sticky top-0 z-30 2xl:px-[140px] xl:px-[80px] lg:px-[50px] md:px-[30px] px-[22px] cursor-pointer">
       <div className="flex items-center space-x-0">
@@ -87,12 +103,12 @@ const Navbar = () => {
           height={52}
         />
         {session ? (
-          <div className="relative">
+          <div className="relative pt-1" ref={dropdownRef}>
             <button className="text-center" onClick={toggleDropDown}>
               <BsFilePerson size={40} />
             </button>
             {dropdown && (
-              <div className="absolute right-0 top-16 bg-zinc-300 w-[240px] py-5 rounded-lg flex flex-col gap-3 md:gap-5 items-center">
+              <div className="absolute right-0 top-[65px] bg-zinc-300 w-[240px] py-5 rounded-lg flex flex-col gap-3 md:gap-5 items-center">
                 <Link href="/create-video">
                   <button onClick={handleCreateVdo} className="btn-primary">
                     Create Video
@@ -103,7 +119,7 @@ const Navbar = () => {
                     onClick={handleProfile}
                     className="text-3xl font-extrabold"
                   >
-                    {session.user.name}
+                    {session?.user?.name}
                   </p>
                 </Link>
                 <button

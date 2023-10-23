@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Profile from "@/components/Profile";
+import Swal from "sweetalert2";
 
 import React from "react";
 
@@ -29,17 +30,33 @@ const MyProfile = () => {
   };
 
   const handleDelete = async (post) => {
-    const hasConfirmed = confirm("This video will be deleted. Are you sure?");
+    const result = await Swal.fire({
+      title: "Delete Video",
+      text: "Are you sure you want to delete this video?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#04aeee",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it",
+    });
 
-    if (hasConfirmed) {
+    if (result.isConfirmed) {
       try {
         await fetch(`api/video/${post._id.toString()}`, {
           method: "DELETE",
         });
 
-        const filteredPost = post.filter((p) => p._id !== post.id);
-        setPosts(filteredPost);
-      } catch (error) {}
+        const filteredPosts = posts.filter((p) => p._id !== post._id);
+        setPosts(filteredPosts);
+
+        Swal.fire("Deleted", "The video has been deleted.", "success");
+      } catch (error) {
+        Swal.fire(
+          "Error",
+          "An error occurred while deleting the video.",
+          "error"
+        );
+      }
     }
   };
 

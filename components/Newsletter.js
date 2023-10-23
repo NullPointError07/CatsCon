@@ -12,9 +12,9 @@ const Newsletter = () => {
         </p>
       </div>
 
-      <div className="border-2 p-12 shadow-lg rounded-lg">
-        <form className="w-full max-w-4xl flex flex-col gap-7 glassmorphism">
-          <div className="flex gap-7">
+      <div className="border-2 p-3 md:p-12 shadow-lg rounded-lg">
+        <form className="w-full max-w-4xl flex flex-col gap-4 md:gap-7 glassmorphism">
+          <div className="flex gap-2 md:gap-7">
             <div className="w-full md:w-1/2">
               <label>
                 <input
@@ -39,7 +39,7 @@ const Newsletter = () => {
             </div>
           </div>
 
-          <div className="flex  gap-7">
+          <div className="flex gap-2 md:gap-7">
             <div className="w-full md:w-1/2">
               <label>
                 <input

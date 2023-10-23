@@ -2,6 +2,7 @@ import Banner from "@/components/Banner";
 import Accordion from "@/components/FAQ";
 import MainFeed from "@/components/MainFeed";
 import Newsletter from "@/components/Newsletter";
+import Sponsons from "@/components/Sponsons";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <Accordion />
       </div>
       <Newsletter />
+      <Sponsons />
     </main>
   );
 }
